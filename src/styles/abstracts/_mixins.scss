@@ -1,0 +1,11 @@
+@mixin phone {
+  @media only screen and (max-width: $media-max-width-sm) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (max-width: $media-max-width-lg) {
+    @content;
+  }
+}

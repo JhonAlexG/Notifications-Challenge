@@ -1,0 +1,131 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  font-family: $font-family-text;
+  font-size: $font-size-default;
+  font-weight: 500;
+  color: blue;
+
+  @include phone {
+    color: red;
+  }
+}
+
+.layout-helper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  background-color: #F7FAFD;
+  margin: 10px auto;
+  padding: 0rem !important;
+  width: 100% !important;
+}
+
+.notification-status{
+  height: 5px;
+}
+
+.content{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 1rem 0rem 1rem;
+  align-items: start;
+  width: 100%;
+  height: auto;
+  background-color: #FFFFFF;  
+}
+
+.content:hover {
+  background-color: #ecebf2;
+}
+
+.unreaded{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 1rem 0rem 1rem;
+  align-items: start;
+  width: 100%;
+  height: auto;
+  background-color: #e3eef5; 
+}
+
+.unreaded:hover {
+    background-color: #ccdce7;
+  }
+
+.group{
+  color: #0C2D67;
+}
+
+.group:hover{
+  text-decoration: underline #0C2D67;
+}
+
+.post{
+  color: #565b62;
+}
+
+.post:hover{
+  color: #0C2D67;
+}
+
+.user:hover{
+  color: #0C2D67;
+}
+
+.img-preview{
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification-info{
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  height: auto;
+}
+
+.info{
+  display: inline;
+  padding: 5px;
+  justify-items: left;
+}
+.preview{
+  display: flex;
+  padding: 3px;
+  height: 5rem;
+  width: auto;
+  //height: 50px !important;
+
+}
+
+.preview:hover{
+  height: 4.5rem;
+  background-color: #e3eef5;
+}
+
+
+.time{
+  display: flex;
+  justify-content: left;
+}
+
+.messagePreview{
+  display: flex;
+  padding: 3px;
+  background-color: #ffffff;
+  border : 1px #B6B6BB solid;
+  border-radius: 5px;
+}
+
+.messagePreview:hover{
+  background-color: #e3eef5;
+}
+
+.time{
+  font-size: small;
+  color: gray;
+}
