@@ -1,76 +1,77 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import mockNotifications from "../assets/others/notifications.js";
-import { Notification } from "../components/Notification";
+import Notification from "../components/Notification";
 import { useState, useEffect } from "react";
 
 const NotificationsPannel = () => {
-    const [count, setCount] = useState(0);
     const [notes, setNotes] = useState([]);
-    const [notesAux, setNotesAux] = useState([]);
+    const [count, setCount] = useState(
+        () =>
+            mockNotifications.filter(
+                (notification) => notification.readed == false
+            ).length
+    );
+
     useEffect(() => {
         setNotes(mockNotifications);
-        setNotesAux(notes);
+        setCount(countUnread());
     }, []);
 
-    const readedFilter = () => {
-        setNotesAux(
-            notes.map((notification) =>
-                notification.readed ? notification : null
-            )
-        );
-        console.log(notesAux);
-    }; 
-
     function handleClick() {
-        console.log(notes);
         notes.map((notification) => {
-            notification.readed = true;
+            setNotes((prevState) => [
+                ...prevState,
+                (notification.readed = true),
+            ]);
         });
-        console.log(notes);
         setNotes(notes);
-        countUnread();
+        setCount(0);
     }
 
-    function countUnread() {
+    const countUnread = () => {
         let counter = 0;
         notes.map((notification) => {
             if (notification.readed == false) {
                 counter++;
             }
         });
-        //setCount(counter);
-        return counter;
-    }
+        setCount(counter);
+        return count;
+    };
 
-    function checkear() {
-        console.log(notes);
-        console.log(notesAux);
-    } 
+    function check() {
+        countUnread();
+    }
 
     return (
         <Grid container className="notification-Pannel">
             <Grid container className="notification-list">
-                <Grid item className="notification-header">
-                    <div className="notification-cont-txt">
-                        <b className="notification-txt"> Notifications </b>{" "}
-                        {countUnread() > 0 ? (
-                            <p className="notification-count"> {countUnread()} </p>
-                        ) : null}{" "} 
-                    </div>
-                    <div className="mark-all">
-                        <p className="mark-all-txt" onClick={handleClick}> Mark all as read </p>
-                    </div>
-                    <button onClick={checkear}> check </button>
-                </Grid> 
-
-                <div>
+                <Grid item fontFamily={"Plus Jakarta Sans"}  className="notification-header">
+                    <Box className="notification-cont-txt">
+                        <Typography variant="b" className="notification-txt">
+                             Notifications 
+                        </Typography>
+                             {" "}
+                        {count > 0 ? (
+                            <Typography variant="p" className="notification-count"> {count} 
+                            </Typography>
+                        ) : null}{" "}
+                    </Box>
+                    <Box onClick={handleClick} fontFamily={"Plus Jakarta Sans"} className="mark-all">
+                        <Typography variant="p" className="mark-all-txt" >
+                            {" "}
+                            Mark all as read{" "}
+                        </Typography>
+                    </Box>
+                </Grid>
+                <Box onClick={check}>
                     {notes.map((notification) => (
-                        <Notification 
+                        <Notification
                             key={notification.id}
                             notification={notification}
                         />
                     ))}
-                </div>
+                </Box>
             </Grid>
         </Grid>
     );

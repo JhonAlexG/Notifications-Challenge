@@ -1,9 +1,9 @@
-import { Avatar, Grid, colors } from "@mui/material";
+import { Avatar, Box, Grid, Typography, colors } from "@mui/material";
 import { useState } from "react";
 import unread from "../assets/images/Unread-Not-Circle.png";
 import { blue } from "@mui/material/colors";
 
-export const Notification = ({ notification }) => {
+const Notification = ({ notification }) => {
     const [notes, setNotes] = useState([]);
 
     function createMessage(notification) {
@@ -32,48 +32,52 @@ export const Notification = ({ notification }) => {
     return (
         <Grid container className="layout-helper" onClick={markRead}>
             <Grid item className={notification.readed ? "content" : "unreaded"}>
-                <div className="notification-info">
+                <Box className="notification-info">
                     <Grid item className="info">
-                        {" "}
                         <Avatar alt="Remy Sharp" src={notification.avatar} />
                     </Grid>
                     <Grid item className="info">
-                        <b className="user">{notification.name}</b> {createMessage(notification)}{" "}
-                        {notification.target.type}{" "}
-                        {notification.target.type != "message" ? (
-                            notification.target.type == "group" ? (
-                                <b className="group">
-                                    {notification.target.content}
-                                </b>
+                        <Box
+                            fontFamily={"Plus Jakarta Sans"}
+                        >
+                            <Typography variant="p" component="b" className="user">{notification.name}</Typography>{" "}
+                            {createMessage(notification)}{" "}
+                            {notification.target.type}{" "}
+                            {notification.target.type != "message" ? (
+                                notification.target.type == "group" ? (
+                                    <Typography variant="p" component="b" className="group">
+                                        {notification.target.content}
+                                    </Typography>
+                                ) : (
+                                    <Typography variant="b" className="post">
+                                        {notification.target.content}
+                                    </Typography>
+                                )
                             ) : (
-                                <b className="post">
+                                ""
+                            )}{" "}
+                            {notification.readed ? (
+                                ""
+                            ) : (
+                                <img
+                                    className="notification-status"
+                                    src={unread}
+                                    alt=""
+                                />
+                            )}
+                            <Typography variant="p" className="time">{notification.date}</Typography>
+                            {notification.target.type == "message" ? (
+                                <Typography variant="p" className="messagePreview">
                                     {notification.target.content}
-                                </b>
-                            )
-                        ) : (
-                            ""
-                        )}{" "}
-                        {notification.readed ? (
-                            ""
-                        ) : (
-                            <img
-                                className="notification-status"
-                                src={unread}
-                                alt=""
-                            />
-                        )}
-                        <p className="time">{notification.date}</p>
-                        {notification.target.type == "message" ? (
-                            <p className="messagePreview">
-                                {notification.target.content}
-                            </p>
-                        ) : (
-                            ""
-                        )}
+                                </Typography>
+                            ) : (
+                                ""
+                            )}
+                        </Box>
                     </Grid>
-                </div>
+                </Box>
                 {notification.target.type == "picture" ? (
-                    <div className="img-preview">
+                    <Box className="img-preview">
                         <Grid item className="img-preview">
                             <img
                                 className="preview"
@@ -81,7 +85,7 @@ export const Notification = ({ notification }) => {
                                 alt=""
                             />
                         </Grid>
-                    </div>
+                    </Box>
                 ) : (
                     ""
                 )}
@@ -89,3 +93,5 @@ export const Notification = ({ notification }) => {
         </Grid>
     );
 };
+
+export default Notification;
